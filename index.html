@@ -4,37 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>QuickChat</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <style>
   :root {
-    --bg-primary: #0a0f0a;
-    --bg-secondary: #111711;
-    --bg-card: #151c15;
-    --bg-input: #1a221a;
-    --bg-message-out: #1a4a1a;
-    --bg-message-in: #1a221a;
-    --green-primary: #25d366;
-    --green-dark: #128c7e;
-    --green-light: #34eb7a;
-    --green-glow: rgba(37,211,102,0.15);
-    --green-glow-strong: rgba(37,211,102,0.3);
-    --text-primary: #e8f5e9;
-    --text-secondary: #7a9e7a;
-    --text-muted: #4a6a4a;
-    --border: #1f2f1f;
-    --border-light: #253525;
-    --red: #ef5350;
-    --online: #25d366;
+    --bg-primary: #08070f;
+    --bg-secondary: #0d0c1a;
+    --bg-card: #131228;
+    --bg-input: #19173a;
+    --bg-message-out: linear-gradient(135deg,#ff2e76,#7b2ff7);
+    --bg-message-in: #1c1a3a;
+    --green-primary: #ff2e76;
+    --green-dark: #b0206e;
+    --green-light: #ff5e95;
+    --green-glow: rgba(255,46,118,0.15);
+    --green-glow-strong: rgba(255,46,118,0.35);
+    --accent-cyan: #00e5ff;
+    --accent-cyan-glow: rgba(0,229,255,0.25);
+    --text-primary: #f1f0ff;
+    --text-secondary: #8c89b8;
+    --text-muted: #524f7a;
+    --border: #221f42;
+    --border-light: #2c2956;
+    --red: #ff4567;
+    --online: #39ff9a;
     --radius-sm: 8px;
     --radius: 12px;
     --radius-lg: 18px;
     --radius-xl: 24px;
-    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --shadow: 0 4px 24px rgba(0,0,0,0.5);
     --transition: 0.2s ease;
+    --font-display: 'Rajdhani', sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   html, body { height:100%; overflow:hidden; font-family:'Inter',sans-serif; background:var(--bg-primary); color:var(--text-primary); }
+  body {
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(255,46,118,0.12), transparent),
+      radial-gradient(ellipse 80% 50% at 90% 110%, rgba(0,229,255,0.10), transparent),
+      var(--bg-primary);
+  }
 
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width:4px; }
@@ -47,9 +56,15 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     z-index:9999; transition:opacity 0.4s;
   }
-  #loading-screen .logo-big { font-size:42px; font-weight:800; color:var(--green-primary);
-    letter-spacing:-1px; margin-bottom:8px; }
-  #loading-screen .logo-big span { color:var(--text-primary); }
+  #loading-screen .logo-big { font-family:var(--font-display); font-size:46px; font-weight:700; font-style:italic;
+    letter-spacing:1px; margin-bottom:10px; position:relative; display:inline-block;
+    background:linear-gradient(100deg,#ff2e76,#ff5e95 35%,#00e5ff 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 0 18px rgba(255,46,118,0.45)); text-transform:uppercase; }
+  #loading-screen .logo-big span { background:linear-gradient(100deg,#ff5e95,#00e5ff);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  #loading-screen .logo-big::after { content:''; position:absolute; left:2px; bottom:-6px; height:3px; width:60%;
+    background:linear-gradient(90deg,#ff2e76,#00e5ff); border-radius:2px; transform:skewX(-20deg); }
   #loading-screen p { color:var(--text-secondary); font-size:13px; margin-bottom:32px; }
   .spinner { width:36px; height:36px; border:3px solid var(--border); border-top-color:var(--green-primary);
     border-radius:50%; animation:spin 0.8s linear infinite; }
@@ -67,8 +82,15 @@
   }
   .auth-screen.hidden { display:none; }
   .auth-logo { margin-bottom:32px; text-align:center; }
-  .auth-logo .qc-logo { font-size:36px; font-weight:800; color:var(--green-primary); letter-spacing:-1px; }
-  .auth-logo .qc-logo span { color:var(--text-primary); }
+  .auth-logo .qc-logo { font-family:var(--font-display); font-size:38px; font-weight:700; font-style:italic;
+    letter-spacing:1px; text-transform:uppercase; position:relative; display:inline-block;
+    background:linear-gradient(100deg,#ff2e76,#ff5e95 35%,#00e5ff 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 0 14px rgba(255,46,118,0.4)); }
+  .auth-logo .qc-logo span { background:linear-gradient(100deg,#ff5e95,#00e5ff);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .auth-logo .qc-logo::after { content:''; position:absolute; left:1px; bottom:-5px; height:3px; width:55%;
+    background:linear-gradient(90deg,#ff2e76,#00e5ff); border-radius:2px; transform:skewX(-20deg); }
   .auth-logo p { color:var(--text-secondary); font-size:13px; margin-top:4px; }
   .auth-card {
     background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-xl);
@@ -126,8 +148,12 @@
     justify-content:space-between; border-bottom:1px solid var(--border);
     background:var(--bg-card);
   }
-  .sidebar-logo { font-size:22px; font-weight:800; color:var(--green-primary); letter-spacing:-0.5px; }
-  .sidebar-logo span { color:var(--text-primary); }
+  .sidebar-logo { font-family:var(--font-display); font-size:24px; font-weight:700; font-style:italic;
+    letter-spacing:0.5px; text-transform:uppercase; position:relative; display:inline-block;
+    background:linear-gradient(100deg,#ff2e76,#ff5e95 35%,#00e5ff 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .sidebar-logo span { background:linear-gradient(100deg,#ff5e95,#00e5ff);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
   .header-actions { display:flex; gap:8px; }
   .icon-btn {
     width:38px; height:38px; border:none; background:transparent; color:var(--text-secondary);
@@ -149,22 +175,26 @@
 
   /* ── NAV TABS ── */
   .nav-tabs {
-    display:flex; border-bottom:1px solid var(--border);
-    background:var(--bg-card); padding:0 4px;
+    display:flex; border-top:1px solid var(--border);
+    background:var(--bg-card); padding:0;
   }
   .nav-tab {
     flex:1; padding:13px 4px 10px; border:none; background:transparent; color:var(--text-muted);
     font-size:11px; font-weight:500; font-family:inherit; cursor:pointer;
     display:flex; flex-direction:column; align-items:center; gap:4px;
-    border-bottom:2px solid transparent; transition:all var(--transition); position:relative;
+    border-top:3px solid transparent; transition:all var(--transition); position:relative;
   }
   .nav-tab i { font-size:17px; }
-  .nav-tab.active { color:var(--green-primary); border-bottom-color:var(--green-primary); }
+  .nav-tab[data-tab="chats"].active    { color:#ff2e76; border-top-color:#ff2e76; background:rgba(255,46,118,0.08); }
+  .nav-tab[data-tab="friends"].active  { color:#2196F3; border-top-color:#2196F3; background:rgba(33,150,243,0.07); }
+  .nav-tab[data-tab="calls"].active    { color:#ef5350; border-top-color:#ef5350; background:rgba(239,83,80,0.07); }
+  .nav-tab[data-tab="settings"].active { color:#ce93d8; border-top-color:#ce93d8; background:rgba(206,147,216,0.07); }
   .nav-tab .badge {
     position:absolute; top:8px; right:calc(50% - 14px);
     background:var(--green-primary); color:#000; font-size:9px; font-weight:700;
     padding:1px 5px; border-radius:10px; min-width:16px; text-align:center;
   }
+  .nav-tab[data-tab="friends"] .badge { background:#2196F3; color:#fff; }
 
   /* ── CHAT LIST ── */
   .chat-list { flex:1; overflow-y:auto; }
@@ -202,7 +232,7 @@
     position:absolute; bottom:20px; right:20px; width:52px; height:52px;
     background:var(--green-primary); color:#000; border:none; border-radius:50%;
     font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 4px 16px rgba(37,211,102,0.4); transition:all var(--transition); z-index:10;
+    box-shadow:0 4px 20px rgba(255,46,118,0.5), 0 0 0 1px rgba(0,229,255,0.15); transition:all var(--transition); z-index:10;
   }
   .fab:hover { transform:scale(1.08); background:var(--green-light); }
 
@@ -244,7 +274,7 @@
     font-size:14px; line-height:1.5; position:relative; word-break:break-word;
   }
   .msg-row.in .msg-bubble { background:var(--bg-message-in); border-bottom-left-radius:4px; }
-  .msg-row.out .msg-bubble { background:var(--bg-message-out); border-bottom-right-radius:4px; color:var(--text-primary); }
+  .msg-row.out .msg-bubble { background:var(--bg-message-out); border-bottom-right-radius:4px; color:var(--text-primary); box-shadow:0 2px 14px rgba(255,46,118,0.25); }
   .msg-meta { font-size:10px; color:var(--text-muted); margin-top:4px; text-align:right; display:flex; align-items:center; justify-content:flex-end; gap:4px; }
   .msg-status { color:var(--green-primary); font-size:11px; }
   .msg-img { max-width:220px; border-radius:10px; cursor:pointer; display:block; margin-bottom:4px; }
@@ -564,7 +594,7 @@
     </div>
 
     <!-- Chats Panel -->
-    <div id="panel-chats" class="panel active" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
+    <div id="panel-chats" class="panel active" style="flex:1;overflow:hidden;flex-direction:column;">
       <div class="search-bar">
         <div class="wrap">
           <i class="fas fa-search"></i>
@@ -581,32 +611,42 @@
     </div>
 
     <!-- Friends Panel -->
-    <div id="panel-friends" class="panel" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
-      <div class="panel-header">
-        <h2>Friends</h2>
-      </div>
-      <div class="panel-content" id="friends-list">
-        <button class="btn btn-outline" id="add-friend-btn" style="margin-bottom:16px">
-          <i class="fas fa-user-plus"></i> Add Friend
+    <div id="panel-friends" class="panel" style="flex:1;overflow:hidden;flex-direction:column;">
+      <div class="panel-header" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0d1b2a,#1a2744);">
+        <h2 style="color:#2196F3;"><i class="fas fa-user-friends" style="margin-right:8px;font-size:16px;"></i>Friends</h2>
+        <button class="btn btn-sm" id="add-friend-btn" style="background:rgba(33,150,243,0.15);color:#2196F3;border:1.5px solid #2196F3;border-radius:20px;padding:7px 14px;font-size:12px;">
+          <i class="fas fa-user-plus"></i> Add
         </button>
+      </div>
+      <div class="panel-content" id="friends-list" style="padding:12px;">
+        <div id="requests-section" style="display:none;margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Friend Requests</div>
+          <div id="requests-container"></div>
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">My Friends</div>
         <div id="friends-container"></div>
       </div>
     </div>
 
     <!-- Calls Panel -->
-    <div id="panel-calls" class="panel" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
-      <div class="panel-header"><h2>Calls</h2></div>
-      <div class="panel-content">
-        <div class="calls-empty">
-          <i class="fas fa-phone-slash"></i>
-          <p>No call history yet.<br>Voice &amp; video calls coming soon!</p>
+    <div id="panel-calls" class="panel" style="flex:1;overflow:hidden;flex-direction:column;">
+      <div class="panel-header" style="background:linear-gradient(135deg,#1a0a0a,#2a1010);">
+        <h2 style="color:#ef5350;"><i class="fas fa-phone" style="margin-right:8px;font-size:16px;"></i>Calls</h2>
+      </div>
+      <div class="panel-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;">
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="width:80px;height:80px;border-radius:50%;background:rgba(239,83,80,0.1);border:2px solid rgba(239,83,80,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+            <i class="fas fa-phone" style="font-size:32px;color:#ef5350;"></i>
+          </div>
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text-primary);">No Calls Yet</h3>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">Voice &amp; video calls<br>coming soon! 🔴</p>
         </div>
       </div>
     </div>
 
     <!-- Settings Panel -->
-    <div id="panel-settings" class="panel" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
-      <div class="panel-header"><h2>Settings</h2></div>
+    <div id="panel-settings" class="panel" style="flex:1;overflow:hidden;flex-direction:column;">
+      <div class="panel-header" style="background:linear-gradient(135deg,#1a0d2e,#2a1040);"><h2 style="color:#ce93d8;"><i class="fas fa-cog" style="margin-right:8px;font-size:16px;"></i>Settings</h2></div>
       <div class="panel-content">
         <!-- Profile Card -->
         <div class="settings-profile" id="edit-profile-btn">
@@ -637,6 +677,9 @@
           <div class="settings-item" id="about-btn">
             <i class="fas fa-info-circle"></i><span>About QuickChat</span><i class="fas fa-chevron-right arrow"></i>
           </div>
+          <div class="settings-item" id="app-details-btn">
+            <i class="fas fa-star" style="color:#FFD700;"></i><span>App Details</span><i class="fas fa-chevron-right arrow"></i>
+          </div>
         </div>
 
         <button class="btn btn-danger" id="logout-btn" style="margin-top:8px">
@@ -648,7 +691,7 @@
     <!-- Bottom Nav -->
     <div class="nav-tabs">
       <button class="nav-tab active" data-tab="chats"><i class="fas fa-comment-dots"></i>Chats</button>
-      <button class="nav-tab" data-tab="friends"><i class="fas fa-user-friends"></i>Friends</button>
+      <button class="nav-tab" data-tab="friends"><i class="fas fa-user-friends"></i>Friends<span class="badge" id="friends-req-badge" style="display:none;"></span></button>
       <button class="nav-tab" data-tab="calls"><i class="fas fa-phone"></i>Calls</button>
       <button class="nav-tab" data-tab="settings"><i class="fas fa-cog"></i>Settings</button>
     </div>
@@ -788,11 +831,11 @@
       <div class="about-section">
         <h4>Contact</h4>
         <div class="about-contact">
-          <i class="fab fa-whatsapp" style="color:#25d366;font-size:18px;"></i>
+          <i class="fab fa-whatsapp" style="color:#00e5ff;font-size:18px;"></i>
           <a href="https://wa.me/94743010225">+94 743 010 225</a>
         </div>
         <div class="about-contact">
-          <i class="fab fa-whatsapp" style="color:#25d366;font-size:18px;"></i>
+          <i class="fab fa-whatsapp" style="color:#00e5ff;font-size:18px;"></i>
           <a href="https://wa.me/94740989928">+94 740 989 928</a>
         </div>
       </div>
@@ -821,6 +864,93 @@
   </div>
 </div>
 
+<!-- App Details Modal -->
+<div class="modal-overlay" id="app-details-modal">
+  <div class="modal" style="padding:0;overflow:hidden;border-radius:var(--radius-xl);">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#1a0a28,#2a0d3a,#160a2e);padding:28px 24px 20px;text-align:center;position:relative;">
+      <button class="modal-close" id="close-app-details-modal" style="position:absolute;top:14px;right:16px;color:rgba(255,255,255,0.5);"><i class="fas fa-times"></i></button>
+      <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#ff2e76,#7b2ff7);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 24px rgba(255,46,118,0.35);">
+        <i class="fas fa-comments" style="font-size:30px;color:#fff;"></i>
+      </div>
+      <div style="font-size:26px;font-weight:800;color:#ff2e76;letter-spacing:-0.5px;">Quick<span style="color:#fff;">Chat</span></div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;">Official Chat Application</div>
+      <div style="display:inline-block;background:rgba(255,46,118,0.15);border:1px solid rgba(255,46,118,0.3);border-radius:20px;padding:4px 14px;margin-top:10px;font-size:11px;color:#ff2e76;font-weight:600;">v1.0.0 STABLE</div>
+    </div>
+    <!-- Content -->
+    <div style="padding:20px 24px;">
+      <!-- Developers -->
+      <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Developed By</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#ff2e76,#7b2ff7);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0;">G</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;">Ghost</div>
+            <div style="font-size:11px;color:var(--text-muted);">Lead Developer &amp; Designer</div>
+          </div>
+          <div style="margin-left:auto;background:rgba(255,46,118,0.1);border:1px solid rgba(255,46,118,0.2);border-radius:20px;padding:3px 10px;font-size:10px;color:#ff2e76;font-weight:600;">Owner</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#2196F3,#0d47a1);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0;">D</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;">Dexter</div>
+            <div style="font-size:11px;color:var(--text-muted);">Co-Developer &amp; Backend</div>
+          </div>
+          <div style="margin-left:auto;background:rgba(33,150,243,0.1);border:1px solid rgba(33,150,243,0.2);border-radius:20px;padding:3px 10px;font-size:10px;color:#2196F3;font-weight:600;">Owner</div>
+        </div>
+      </div>
+      <!-- 24/7 Support -->
+      <div style="background:linear-gradient(135deg,rgba(255,46,118,0.08),rgba(0,229,255,0.08));border:1px solid rgba(255,46,118,0.2);border-radius:var(--radius);padding:16px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#39ff9a;animation:pulse 1.5s infinite;"></div>
+          <div style="font-size:13px;font-weight:700;color:#39ff9a;">24/7 Customer Support</div>
+        </div>
+        <a href="https://wa.me/94743010225" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:10px;">
+          <div style="width:38px;height:38px;border-radius:50%;background:#00c2cc;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fab fa-whatsapp" style="font-size:18px;color:#fff;"></i>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary);">+94 743 010 225</div>
+            <div style="font-size:11px;color:var(--text-muted);">Ghost — WhatsApp</div>
+          </div>
+          <i class="fas fa-external-link-alt" style="margin-left:auto;color:var(--text-muted);font-size:11px;"></i>
+        </a>
+        <a href="https://wa.me/94740989928" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+          <div style="width:38px;height:38px;border-radius:50%;background:#00c2cc;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <i class="fab fa-whatsapp" style="font-size:18px;color:#fff;"></i>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary);">+94 740 989 928</div>
+            <div style="font-size:11px;color:var(--text-muted);">Dexter — WhatsApp</div>
+          </div>
+          <i class="fas fa-external-link-alt" style="margin-left:auto;color:var(--text-muted);font-size:11px;"></i>
+        </a>
+      </div>
+      <!-- Features -->
+      <div style="background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">App Features</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="font-size:12px;color:var(--text-secondary);"><i class="fas fa-check" style="color:#00e5ff;margin-right:6px;"></i>Real-time Chat</div>
+          <div style="font-size:12px;color:var(--text-secondary);"><i class="fas fa-check" style="color:#00e5ff;margin-right:6px;"></i>Google Sign-In</div>
+          <div style="font-size:12px;color:var(--text-secondary);"><i class="fas fa-check" style="color:#00e5ff;margin-right:6px;"></i>End-to-End Secure</div>
+          <div style="font-size:12px;color:var(--text-secondary);"><i class="fas fa-check" style="color:#00e5ff;margin-right:6px;"></i>Image Sharing</div>
+          <div style="font-size:12px;color:var(--text-secondary);"><i class="fas fa-check" style="color:#00e5ff;margin-right:6px;"></i>Online Status</div>
+          <div style="font-size:12px;color:var(--text-secondary);"><i class="fas fa-check" style="color:#00e5ff;margin-right:6px;"></i>Read Receipts</div>
+        </div>
+      </div>
+      <!-- Copyright -->
+      <div style="text-align:center;padding-top:4px;">
+        <p style="font-size:11px;color:var(--text-muted);">© 2025 Ghost &amp; Dexter. All rights reserved.</p>
+        <p style="font-size:10px;color:var(--text-muted);margin-top:2px;">Made with ❤️ in Sri Lanka 🇱🇰</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+</style>
+
 <!-- Image Viewer -->
 <div class="img-viewer" id="img-viewer">
   <button class="img-viewer-close" id="close-img-viewer"><i class="fas fa-times"></i></button>
@@ -843,9 +973,7 @@ import {
   collection, query, where, getDocs, onSnapshot, addDoc,
   orderBy, serverTimestamp, writeBatch, limit, arrayUnion
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
-import {
-  getStorage, ref, uploadBytes, getDownloadURL
-} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+// Storage not used (Spark plan) — using base64
 
 // ══════════════════════════════════════════════
 //  🔧 FIREBASE CONFIG — Replace with your own
@@ -867,7 +995,7 @@ const UNCONFIGURED = firebaseConfig.apiKey === "YOUR_API_KEY";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const storage = getStorage(app);
+
 const googleProvider = new GoogleAuthProvider();
 
 // ── STATE ──
@@ -879,6 +1007,8 @@ let messagesUnsub = null;
 let typingTimeout = null;
 let chatsUnsub = null;
 let typingUnsub = null;
+let friendReqUnsub = null;
+let incomingRequests = [];
 
 // ── HELPERS ──
 function toast(msg, isError=false) {
@@ -891,6 +1021,10 @@ function toast(msg, isError=false) {
 
 function getChatId(uid1, uid2) {
   return [uid1, uid2].sort().join('_');
+}
+
+function friendReqId(from, to) {
+  return `${from}_${to}`;
 }
 
 function formatTime(ts) {
@@ -952,6 +1086,7 @@ onAuthStateChanged(auth, async user => {
       await setDoc(doc(db,'users',user.uid), {online:true, lastSeen:serverTimestamp()}, {merge:true});
       loadSettingsProfile();
       subscribeChats();
+      subscribeFriendRequests();
     }
   } else {
     currentUser = null; currentUserData = null;
@@ -1030,6 +1165,7 @@ document.getElementById('setup-save-btn').onclick = async () => {
 // ── LOGOUT ──
 document.getElementById('logout-btn').onclick = async () => {
   if(currentUser) await setDoc(doc(db,'users',currentUser.uid),{online:false,lastSeen:serverTimestamp()},{merge:true});
+  if(friendReqUnsub) friendReqUnsub();
   await signOut(auth);
 };
 
@@ -1105,6 +1241,69 @@ function subscribeChats() {
     });
   });
 }
+
+// ── SUBSCRIBE FRIEND REQUESTS ──
+function subscribeFriendRequests() {
+  if(!currentUser) return;
+  if(friendReqUnsub) friendReqUnsub();
+  const q = query(collection(db,'friendRequests'), where('to','==',currentUser.uid), where('status','==','pending'));
+  friendReqUnsub = onSnapshot(q, snap => {
+    incomingRequests = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    renderFriendBadge();
+    renderRequests();
+  });
+}
+
+function renderFriendBadge() {
+  const badge = document.getElementById('friends-req-badge');
+  if(!badge) return;
+  if(incomingRequests.length) { badge.style.display='block'; badge.textContent = incomingRequests.length; }
+  else { badge.style.display='none'; }
+}
+
+function renderRequests() {
+  const section = document.getElementById('requests-section');
+  const container = document.getElementById('requests-container');
+  if(!section || !container) return;
+  if(!incomingRequests.length) { section.style.display='none'; container.innerHTML=''; return; }
+  section.style.display='block';
+  container.innerHTML='';
+  incomingRequests.forEach(r => {
+    const div = document.createElement('div'); div.className='friend-item';
+    div.innerHTML = `
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--green-dark);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#fff;">${avatarInitial(r.fromName||r.fromUsername)}</div>
+      <div class="friend-info">
+        <div class="friend-name">${r.fromName||r.fromUsername}</div>
+        <div class="friend-status">@${r.fromUsername||''} wants to be friends</div>
+      </div>
+      <div class="friend-actions">
+        <button class="btn btn-green btn-sm accept-req-btn">Accept</button>
+        <button class="btn btn-outline btn-sm reject-req-btn" style="padding:9px 12px;">✕</button>
+      </div>`;
+    div.querySelector('.accept-req-btn').onclick = () => acceptFriendRequest(r);
+    div.querySelector('.reject-req-btn').onclick = () => rejectFriendRequest(r);
+    container.appendChild(div);
+  });
+}
+
+async function acceptFriendRequest(r) {
+  try {
+    await updateDoc(doc(db,'users',currentUser.uid), {friends:arrayUnion(r.from)});
+    await updateDoc(doc(db,'users',r.from), {friends:arrayUnion(currentUser.uid)});
+    await deleteDoc(doc(db,'friendRequests',r.id));
+    currentUserData.friends = [...(currentUserData.friends||[]), r.from];
+    toast('Friend added! 🎉');
+    loadFriends();
+  } catch(err) { toast(err.message, true); }
+}
+
+async function rejectFriendRequest(r) {
+  try {
+    await deleteDoc(doc(db,'friendRequests',r.id));
+    toast('Request declined');
+  } catch(err) { toast(err.message, true); }
+}
+
 
 // ── OPEN CHAT ──
 async function openChat(chatId, otherUser) {
@@ -1260,18 +1459,18 @@ function clearTypingIndicator() {
   setDoc(doc(db,'chats',activeChatId,'typing',currentUser.uid),{isTyping:false},{merge:true});
 }
 
-// ── IMAGE SEND ──
+// ── IMAGE SEND (base64 - no Storage needed) ──
 document.getElementById('img-file-input').onchange = async e => {
   const file = e.target.files[0];
   if(!file||!activeChatId) return;
-  toast('Uploading image...');
-  try {
-    const r = ref(storage,`chat_images/${activeChatId}/${Date.now()}_${file.name}`);
-    await uploadBytes(r, file);
-    const url = await getDownloadURL(r);
-    await sendMessage('', url);
+  if(file.size > 500*1024) { toast('Max 500KB image!', true); e.target.value=''; return; }
+  toast('Sending image...');
+  const reader = new FileReader();
+  reader.onload = async ev => {
+    await sendMessage('', ev.target.result);
     toast('Image sent!');
-  } catch(err) { toast('Upload failed: '+err.message, true); }
+  };
+  reader.readAsDataURL(file);
   e.target.value='';
 };
 
@@ -1315,7 +1514,13 @@ async function searchUsers() {
     [...byUsername.docs,...byEmail.docs].forEach(d => { if(d.id!==currentUser.uid) found.set(d.id,d.data()); });
     if(!found.size) { results.innerHTML='<p style="color:var(--text-muted);font-size:13px;text-align:center;">No users found</p>'; return; }
     results.innerHTML='';
-    found.forEach((user,uid) => {
+    for(const [uid,user] of found) {
+      const isFriend = (currentUserData?.friends||[]).includes(uid);
+      const sentReqSnap = await getDoc(doc(db,'friendRequests',friendReqId(currentUser.uid,uid)));
+      const receivedReqSnap = await getDoc(doc(db,'friendRequests',friendReqId(uid,currentUser.uid)));
+      const sentPending = sentReqSnap.exists() && sentReqSnap.data().status==='pending';
+      const receivedPending = receivedReqSnap.exists() && receivedReqSnap.data().status==='pending';
+
       const div = document.createElement('div'); div.className='user-result';
       div.innerHTML = `
         <div style="width:40px;height:40px;border-radius:50%;background:var(--green-dark);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;">${avatarInitial(user.displayName||user.username)}</div>
@@ -1323,19 +1528,45 @@ async function searchUsers() {
           <div style="font-size:14px;font-weight:600;">${user.displayName||user.username}</div>
           <div style="font-size:12px;color:var(--text-secondary);">@${user.username}</div>
         </div>
-        <button class="btn btn-green btn-sm" style="flex-shrink:0;">Chat</button>`;
-      div.querySelector('button').onclick = async () => {
-        const chatId = getChatId(currentUser.uid, uid);
-        const chatRef = doc(db,'chats',chatId);
-        const snap = await getDoc(chatRef);
-        if(!snap.exists()) {
-          await setDoc(chatRef, { participants:[currentUser.uid,uid], lastMessage:'', lastMessageTime:serverTimestamp(), unread:{} });
-        }
-        document.getElementById('search-modal').classList.remove('open');
-        openChat(chatId, {...user, uid});
-      };
+        <button class="btn btn-sm" style="flex-shrink:0;"></button>`;
+      const btn = div.querySelector('button');
+
+      if(isFriend) {
+        btn.classList.add('btn-green'); btn.textContent='Chat';
+        btn.onclick = async () => {
+          const chatId = getChatId(currentUser.uid, uid);
+          const chatRef = doc(db,'chats',chatId);
+          const snap = await getDoc(chatRef);
+          if(!snap.exists()) await setDoc(chatRef, { participants:[currentUser.uid,uid], lastMessage:'', lastMessageTime:serverTimestamp(), unread:{} });
+          document.getElementById('search-modal').classList.remove('open');
+          openChat(chatId, {...user, uid});
+        };
+      } else if(receivedPending) {
+        btn.classList.add('btn-green'); btn.textContent='Accept';
+        btn.onclick = async () => {
+          await acceptFriendRequest({id:receivedReqSnap.id, from:uid, fromName:user.displayName, fromUsername:user.username});
+          document.getElementById('search-modal').classList.remove('open');
+        };
+      } else if(sentPending) {
+        btn.classList.add('btn-outline'); btn.textContent='Pending'; btn.disabled=true;
+      } else {
+        btn.classList.add('btn-outline'); btn.style.borderColor='#2196F3'; btn.style.color='#2196F3'; btn.textContent='Add Friend';
+        btn.onclick = async () => {
+          btn.disabled=true; btn.textContent='Sending...';
+          try {
+            await setDoc(doc(db,'friendRequests',friendReqId(currentUser.uid,uid)), {
+              from:currentUser.uid, to:uid,
+              fromName:currentUserData.displayName||currentUserData.username,
+              fromUsername:currentUserData.username,
+              status:'pending', timestamp:serverTimestamp()
+            });
+            btn.textContent='Pending';
+            toast('Friend request sent!');
+          } catch(err) { btn.disabled=false; btn.textContent='Add Friend'; toast(err.message, true); }
+        };
+      }
       results.appendChild(div);
-    });
+    }
   } catch(err) { results.innerHTML='<p style="color:var(--red);font-size:13px;">'+err.message+'</p>'; }
 }
 
@@ -1344,9 +1575,20 @@ document.getElementById('add-friend-btn').onclick = openSearchModal;
 
 async function loadFriends() {
   if(!currentUserData) return;
+  renderRequests();
   const container = document.getElementById('friends-container');
   const friendIds = currentUserData.friends || [];
-  if(!friendIds.length) { container.innerHTML='<p style="color:var(--text-muted);font-size:13px;text-align:center;">No friends yet. Add someone!</p>'; return; }
+  if(!friendIds.length) {
+    container.innerHTML=`
+      <div style="text-align:center;padding:40px 20px;">
+        <div style="width:72px;height:72px;border-radius:50%;background:rgba(33,150,243,0.1);border:2px solid rgba(33,150,243,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <i class="fas fa-user-friends" style="font-size:28px;color:#2196F3;"></i>
+        </div>
+        <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;color:var(--text-primary);">No Friends Yet</h3>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">Tap <strong style="color:#2196F3;">Add</strong> at the top to send<br>a friend request — once they accept,<br>they'll show up here!</p>
+      </div>`;
+    return;
+  }
   container.innerHTML='';
   for(const uid of friendIds) {
     const snap = await getDoc(doc(db,'users',uid));
@@ -1423,18 +1665,20 @@ document.getElementById('close-profile-modal').onclick = () => document.getEleme
 
 document.getElementById('profile-pic-input').onchange = async e => {
   const file = e.target.files[0]; if(!file) return;
-  toast('Uploading...');
-  try {
-    const r = ref(storage,`avatars/${currentUser.uid}`);
-    await uploadBytes(r, file);
-    const url = await getDownloadURL(r);
-    document.getElementById('profile-avatar-preview').src=url; document.getElementById('profile-avatar-preview').style.display='block';
+  if(file.size > 300*1024) { toast('Max 300KB photo!', true); return; }
+  toast('Updating photo...');
+  const reader = new FileReader();
+  reader.onload = async ev => {
+    const url = ev.target.result;
+    document.getElementById('profile-avatar-preview').src=url;
+    document.getElementById('profile-avatar-preview').style.display='block';
     document.getElementById('profile-ava-placeholder').style.display='none';
     await updateDoc(doc(db,'users',currentUser.uid),{photoURL:url});
     currentUserData.photoURL=url;
     loadSettingsProfile();
     toast('Photo updated!');
-  } catch(err) { toast('Failed: '+err.message, true); }
+  };
+  reader.readAsDataURL(file);
 };
 
 document.getElementById('save-profile-btn').onclick = async () => {
@@ -1480,6 +1724,8 @@ document.getElementById('dark-mode-toggle').onclick = function() { this.classLis
 
 // ── ABOUT ──
 document.getElementById('about-btn').onclick = () => document.getElementById('about-modal').classList.add('open');
+document.getElementById('app-details-btn').onclick = () => document.getElementById('app-details-modal').classList.add('open');
+document.getElementById('close-app-details-modal').onclick = () => document.getElementById('app-details-modal').classList.remove('open');
 document.getElementById('close-about-modal').onclick = () => document.getElementById('about-modal').classList.remove('open');
 
 // ── IMG VIEWER ──
